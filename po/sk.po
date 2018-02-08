@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dušan Kazik <prescott66@gmail.com>, 2015-2016
+# Dušan Kazik <prescott66@gmail.com>, 2015-2017
 # helix84 <helix84@centrum.sk>, 2014-2015
 # helix84 <helix84@centrum.sk>, 2011
 # helix84 <helix84@centrum.sk>, 2010, 2011, 2012
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 09:18+0100\n"
-"PO-Revision-Date: 2016-02-12 19:55+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-16 07:32+0000\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak (http://www.transifex.com/freedesktop/packagekit/language/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -551,7 +551,12 @@ msgid "PackageKit Monitor"
 msgstr "Monitor PackageKit"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr "Inštaluje sa aktualizácia systému"
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Inštalujú sa aktualizácie"
 
@@ -810,6 +815,11 @@ msgstr "Kontrolujú sa používané knižnice"
 msgid "Copying files"
 msgstr "Kopírujú sa súbory"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr "Spustené háky"
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Zobraziť ladiace informácie všetkých súborov"
@@ -837,7 +847,7 @@ msgid "Security"
 msgstr "Bezpečnostná"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
+msgid "Bug fix"
 msgstr "Oprava chýb"
 
 #. TRANSLATORS: The type of update
@@ -972,8 +982,8 @@ msgid "Getting repositories"
 msgstr "Získavajú sa zdroje softvéru"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Povoľuje sa zdroj softvéru"
+msgid "Modifying repository"
+msgstr "Úprava repozitára"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1318,8 +1328,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Na opravenie nainštalovaného softvéru je potrebné overenie totožnosti"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Spustiť aktualizácie offline"
 

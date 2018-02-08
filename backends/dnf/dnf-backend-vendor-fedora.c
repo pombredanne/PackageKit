@@ -19,49 +19,30 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "hif-backend-vendor.h"
+#include "dnf-backend-vendor.h"
 
 gboolean
-hif_validate_supported_source(const gchar* id)
+dnf_validate_supported_repo (const gchar *id)
 {
-	guint i, j, k, l;
-
-	const gchar *valid_sourcesect[] = { "",
-					  "-tainted",
-					  "-nonfree",
-					  NULL };
-
-	const gchar *valid_sourcetype[] = { "",
-					  "-debuginfo",
-					  "-source",
-					  NULL };
-
-	const gchar *valid_arch[] = { "x86_64",
-				      "i586",
-				      "armv7hl",
-				      "armv5tl",
-				      NULL };
-
-	const gchar *valid[] = { "mageia",
+	guint i;
+	const gchar *valid[] = { "fedora",
+				 "fedora-debuginfo",
+				 "fedora-source",
+				 "rawhide",
+				 "rawhide-debuginfo",
+				 "rawhide-source",
 				 "updates",
-				 "updates_testing",
-				 "backports",
-				 "backports_testing",
-				 "cauldron",
+				 "updates-debuginfo",
+				 "updates-source",
+				 "updates-testing",
+				 "updates-testing-debuginfo",
+				 "updates-testing-source",
+				 "fedora-cisco-openh264",
+				 "fedora-cisco-openh264-debuginfo",
 				 NULL };
-
-	/* Iterate over the ID arrays to find a matching identifier */
 	for (i = 0; valid[i] != NULL; i++) {
-		for (j = 0; valid_arch[j] != NULL; j++) {
-			for (k = 0; valid_sourcesect[k] != NULL; k++) {
-				for (l = 0; valid_sourcetype[l] != NULL; l++) {
-					g_autofree gchar *source_entry = g_strconcat(valid[i], "-", valid_arch[j], valid_sourcesect[k], valid_sourcetype[l], NULL);
-					if (g_strcmp0 (id, source_entry) == 0) {
-						return TRUE;
-					}
-				}
-			}
-		}
+		if (g_strcmp0 (id, valid[i]) == 0)
+			return TRUE;
 	}
 	return FALSE;
 }

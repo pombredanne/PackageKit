@@ -26,6 +26,7 @@
 #include <glib/gstdio.h>
 
 #include <fstream>
+#include <regex>
 
 PkGroupEnum get_enum_group(string group)
 {
@@ -57,6 +58,10 @@ PkGroupEnum get_enum_group(string group)
         return PK_GROUP_ENUM_COMMUNICATION;
     } else if (group.compare ("interpreters") == 0) {
         return PK_GROUP_ENUM_PROGRAMMING;
+    } else if (group.compare ("java") == 0) {
+        return PK_GROUP_ENUM_PROGRAMMING;
+    } else if (group.compare ("javascript") == 0) {
+        return PK_GROUP_ENUM_PROGRAMMING;
     } else if (group.compare ("kde") == 0) {
         return PK_GROUP_ENUM_DESKTOP_KDE;
     } else if (group.compare ("libdevel") == 0) {
@@ -80,6 +85,10 @@ PkGroupEnum get_enum_group(string group)
     } else if (group.compare ("perl") == 0) {
         return PK_GROUP_ENUM_PROGRAMMING;
     } else if (group.compare ("python") == 0) {
+        return PK_GROUP_ENUM_PROGRAMMING;
+    } else if (group.compare ("ruby") == 0) {
+        return PK_GROUP_ENUM_PROGRAMMING;
+    } else if (group.compare ("rust") == 0) {
         return PK_GROUP_ENUM_PROGRAMMING;
     } else if (group.compare ("science") == 0) {
         return PK_GROUP_ENUM_SCIENCE;
@@ -363,16 +372,29 @@ string utilBuildPackageOriginId(pkgCache::VerFileIterator vf)
     if (vf.File().Component() == NULL)
         return string("invalid");
 
-    // Origin, e.g. "Debian" or "Google Inc."
+    // https://wiki.debian.org/DebianRepository/Format
+    // Optional field indicating the origin of the repository, a single line of free form text.
+    // e.g. "Debian" or "Google Inc."
     auto origin = string(vf.File().Origin());
-    // The suite, e.g. "jessie" or "sid"
+    // The Suite field may describe the suite. A suite is a single word.
+    // e.g. "jessie" or "sid"
     auto suite = string(vf.File().Archive());
-    // The component, e.g. "main" or "non-free"
+    // An area within the repository. May be prefixed by parts of the path
+    // following the directory beneath dists.
+    // e.g. "main" or "non-free"
+    // NOTE: this may need the slash stripped, currently having a slash doesn't
+    //    seem a problem though. we'll allow them until otherwise indicated
     auto component = string(vf.File().Component());
 
-    // sanitize origin string
+    // Origin is defined as 'a single line of free form text'.
+    // Sanitize it!
+    // All space characters, control characters and punctuation get replaced
+    // with underscore.
+    // In particular the punctuations ',' and ';' may be used as list separators
+    // so we must not have them appear in our package_ids as that would break
+    // any number of higher level features.
     std::transform(origin.begin(), origin.end(), origin.begin(), ::tolower);
-    std::replace(origin.begin(), origin.end(), ' ', '_');
+    origin = std::regex_replace(origin, std::regex("[[:space:][:cntrl:][:punct:]]+"), "_");
 
     string res = origin + "-" + suite + "-" + component;
     return res;

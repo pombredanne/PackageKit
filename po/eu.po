@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 15:30+0100\n"
-"PO-Revision-Date: 2016-06-16 19:50+0000\n"
-"Last-Translator: assar <asier.sarasua@gmail.com>\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
+"Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Basque (http://www.transifex.com/freedesktop/packagekit/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -548,7 +548,12 @@ msgid "PackageKit Monitor"
 msgstr "PackageKit monitorea"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Eguneraketak instalatzen"
 
@@ -807,6 +812,11 @@ msgstr "Erabiltzen ari diren liburutegiak egiaztatzen"
 msgid "Copying files"
 msgstr "Fitxategiak kopiatzen"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Erakutsi fitxategi guztien arazketa-informazioa"
@@ -834,8 +844,8 @@ msgid "Security"
 msgstr "Segurtasuna"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Akats-konponketa "
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -969,8 +979,8 @@ msgid "Getting repositories"
 msgstr "Biltegiak eskuratzen"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Biltegia gaitzen"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"

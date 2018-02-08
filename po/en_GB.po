@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2014-2016
+# Andi Chandler <andi@gowling.com>, 2014-2017
 # Bruce Cowan <bruce@bcowan.me.uk>, 2012-2013
 # Chris  Leonard <cjl@laptop.org>, 2012
 # Richard Hughes <richard@hughsie.com>, 2011
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 09:18+0100\n"
-"PO-Revision-Date: 2016-03-12 10:53+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-12-04 23:06+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/freedesktop/packagekit/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
@@ -549,7 +549,12 @@ msgid "PackageKit Monitor"
 msgstr "PackageKit Monitor"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr "Installing System Upgrade"
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Installing Updates"
 
@@ -808,6 +813,11 @@ msgstr "Checking libraries in use"
 msgid "Copying files"
 msgstr "Copying files"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr "Running hooks"
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Show debugging information for all files"
@@ -835,8 +845,8 @@ msgid "Security"
 msgstr "Security"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Bug fix "
+msgid "Bug fix"
+msgstr "Bug fix"
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -970,8 +980,8 @@ msgid "Getting repositories"
 msgstr "Getting repositories"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Enabling repository"
+msgid "Modifying repository"
+msgstr "Modifying repository"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1316,8 +1326,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Authentication is required to repair the installed software"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Trigger offline updates"
 

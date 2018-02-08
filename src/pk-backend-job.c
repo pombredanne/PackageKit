@@ -490,7 +490,7 @@ pk_backend_job_set_cache_age (PkBackendJob *job, guint cache_age)
 	if (cache_age != G_MAXUINT && cache_age > cache_age_offset)
 		cache_age -= cache_age_offset;
 
-	g_debug ("cache-age changed to %i", cache_age);
+	g_debug ("cache-age changed to %u", cache_age);
 	job->priv->cache_age = cache_age;
 }
 
@@ -1281,7 +1281,7 @@ pk_backend_job_details (PkBackendJob *job,
 /**
  * pk_backend_job_files:
  *
- * package_id is NULL when we are using this as a calback from DownloadPackages
+ * @package_id is %NULL when we are using this as a calback from DownloadPackages
  **/
 void
 pk_backend_job_files (PkBackendJob *job,

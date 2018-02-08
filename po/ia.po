@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 19:52+0000\n"
-"PO-Revision-Date: 2016-02-12 19:52+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 14:10+0000\n"
 "Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Interlingua (http://www.transifex.com/freedesktop/packagekit/language/ia/)\n"
 "MIME-Version: 1.0\n"
@@ -546,7 +546,12 @@ msgid "PackageKit Monitor"
 msgstr ""
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr ""
 
@@ -805,6 +810,11 @@ msgstr ""
 msgid "Copying files"
 msgstr ""
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr ""
@@ -832,7 +842,7 @@ msgid "Security"
 msgstr ""
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
+msgid "Bug fix"
 msgstr ""
 
 #. TRANSLATORS: The type of update
@@ -967,7 +977,7 @@ msgid "Getting repositories"
 msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
+msgid "Modifying repository"
 msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
@@ -1313,8 +1323,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr ""
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr ""
 

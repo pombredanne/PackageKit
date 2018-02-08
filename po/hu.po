@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 09:18+0100\n"
-"PO-Revision-Date: 2016-02-24 23:01+0000\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
+"Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/freedesktop/packagekit/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -550,7 +550,12 @@ msgid "PackageKit Monitor"
 msgstr "PackageKit-figyelő"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Frissítések telepítése"
 
@@ -809,6 +814,11 @@ msgstr "Használatban lévő programkönyvtárak keresése"
 msgid "Copying files"
 msgstr "Fájlok másolása"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Hibakeresési információk megjelenítése az összes fájlhoz"
@@ -836,8 +846,8 @@ msgid "Security"
 msgstr "Biztonsági"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Hibajavítás"
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -971,8 +981,8 @@ msgid "Getting repositories"
 msgstr "Tárolók lekérése"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Tároló engedélyezése"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1317,8 +1327,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Hitelesítés szükséges a telepített szoftverek javításához"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Kapcsolat nélküli frissítés kezdeményezése"
 

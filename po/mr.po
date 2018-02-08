@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 19:52+0000\n"
-"PO-Revision-Date: 2016-02-12 19:52+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
 "Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Marathi (http://www.transifex.com/freedesktop/packagekit/language/mr/)\n"
 "MIME-Version: 1.0\n"
@@ -547,7 +547,12 @@ msgid "PackageKit Monitor"
 msgstr "पॅकेजकिट मॉनिटर"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr ""
 
@@ -806,6 +811,11 @@ msgstr "वापरणीतील लायब्ररीज् तपास�
 msgid "Copying files"
 msgstr "फाइल्चे प्रत बनवत आहे"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "सर्व फाइल्स्करीता डिबगींग माहिती दाखवा"
@@ -833,8 +843,8 @@ msgid "Security"
 msgstr "सुरक्षा"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "बगचे निवारन"
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -968,8 +978,8 @@ msgid "Getting repositories"
 msgstr "रेपॉजिटरी प्राप्त करत आहे"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "रेपॉजिटरी कार्यक्षम करत आहे"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1314,8 +1324,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr ""
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr ""
 

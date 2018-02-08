@@ -506,10 +506,11 @@ pk_backend_load (PkBackend *backend, GError **error)
 	if (backend_name == NULL)
 		return FALSE;
 
-	/* the "hawkey" backend was renamed to "hif" */
-	if (g_strcmp0 (backend_name, "hawkey") == 0) {
+	/* the "hawkey" and "hif" backends are superseded by "dnf" */
+	if (g_strcmp0 (backend_name, "hawkey") == 0 ||
+	    g_strcmp0 (backend_name, "hif") == 0) {
 		g_free (backend_name);
-		backend_name = g_strdup ("hif");
+		backend_name = g_strdup ("dnf");
 	}
 
 	g_debug ("Trying to load : %s", backend_name);
@@ -937,6 +938,29 @@ pk_backend_convert_uri (const gchar *proxy)
 	    !g_str_has_prefix (proxy, "https://") &&
 	    !g_str_has_prefix (proxy, "ftp://")) {
 		g_string_prepend (string, "http://");
+	}
+
+	/* if we didn't specify a trailing slash, add one */
+	if (!g_str_has_suffix (proxy, "/"))
+		g_string_append_c (string, '/');
+
+	return g_string_free (string, FALSE);
+}
+
+/**
+ * pk_backend_convert_uri_socks:
+ *
+ * Convert a proxy string to a SOCKS URI.
+ **/
+gchar *
+pk_backend_convert_uri_socks (const gchar *proxy)
+{
+	GString *string;
+	string = g_string_new (proxy);
+
+	/* if we didn't specify a prefix, add a default one */
+	if (!g_str_has_prefix (proxy, "socks://")) {
+		g_string_prepend (string, "socks://");
 	}
 
 	/* if we didn't specify a trailing slash, add one */

@@ -5,16 +5,16 @@
 # Translators:
 # Amanpreet Singh Alam <aalam@users.sf.net>, 2008, 2009
 # A S Alam <aalam@users.sf.net>, 2009
-# A S Alam <apreet.alam@gmail.com>, 2011-2014,2016
+# A S Alam <alam.yellow@gmail.com>, 2011-2014,2016
 # Jaswinder Singh <jsingh@redhat.com>, 2009
 # Richard Hughes <richard@hughsie.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-12 15:30+0100\n"
-"PO-Revision-Date: 2016-06-30 12:34+0000\n"
-"Last-Translator: A S Alam <apreet.alam@gmail.com>\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-23 18:02+0000\n"
+"Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Panjabi (Punjabi) (http://www.transifex.com/freedesktop/packagekit/language/pa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -380,14 +380,14 @@ msgstr "ਪੁਸ਼ਟੀ ਕੀਤੇ ਬਿਨਾਂ ਹੀ ਪੈਕੇਜ �
 
 #. command line argument, do we just download or apply changes
 msgid "Prepare the transaction by downloading packages only"
-msgstr ""
+msgstr "ਟਰਾਂਸੈਕਸ਼ਨ ਲਈ ਤਿਆਰੀ ਕੇਵਲ ਪੈਕੇਜ ਡਾਊਨਲੋਡ ਕਰਕੇ ਕਰੋ"
 
 #. command line argument, do we allow package downgrades
 msgid "Allow packages to be downgraded during transaction"
-msgstr ""
+msgstr "ਟਰਾਂਜੈਕਸ਼ਨ ਦੇ ਦੌਰਾਨ ਪੈਕੇਜਾਂ ਨੂੰ ਡਾਊਨਗਰੇਡ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ"
 
 msgid "Allow packages to be reinstalled during transaction"
-msgstr ""
+msgstr "ਟਰਾਂਜੈਕਸ਼ਨ ਦੇ ਦੌਰਾਨ ਪੈਕੇਜਾਂ ਨੂੰ ਮੁੜ-ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਇਜਾਜ਼ਤ ਦਿਓ"
 
 #. TRANSLATORS: command line argument, this command is not a priority
 msgid "Run the command using idle network bandwidth and also using less power"
@@ -549,7 +549,12 @@ msgid "PackageKit Monitor"
 msgstr "ਪੈਕੇਜਕਿੱਟ ਮਾਨੀਟਰ"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "ਅੱਪਡੇਟ ਇੰਸਟਾਲ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ"
 
@@ -567,7 +572,7 @@ msgstr "ਅੱਪਡੇਟਾਂ ਨੂੰ ਇੰਸਟਾਲ ਕੀਾ ਜਾ �
 
 #. TRANSLATORS: we've started doing offline system upgrade
 msgid "Installing system upgrade; this could take a while..."
-msgstr ""
+msgstr "ਸਿਸਟਮ ਅੱਪਗਰੇਡ ਨੂੰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ; ਇਸ ਨੂੰ ਕੁਝ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ..."
 
 #. TRANSLATORS: downloading repo data so we can search
 msgid "Downloading details about the software sources."
@@ -808,6 +813,11 @@ msgstr "ਵਰਤੋਂ ਅਧੀਨ ਲਾਇਬਰੇਰੀਆਂ ਦੀ ਜ�
 msgid "Copying files"
 msgstr "ਫਾਇਲਾਂ ਕਾਪੀ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "ਸਭ ਫਾਇਲਾਂ ਲਈ ਡੀਬੱਗ ਜਾਣਕਾਰੀ ਵੇਖੋ"
@@ -835,8 +845,8 @@ msgid "Security"
 msgstr "ਸੁਰੱਖਿਆ"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "ਬੱਗ ਫਿਕਸ "
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -970,8 +980,8 @@ msgid "Getting repositories"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "ਰਿਪੋਜ਼ਟਰੀ ਚਾਲੂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"

@@ -6,14 +6,15 @@
 # Pau Iranzo <pau@somgnu.cat>, 2009
 # Pere Argelich <bakidok@gmail.com>, 2008
 # Richard Hughes <richard@hughsie.com>, 2011
-# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2015-2016
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 09:18+0100\n"
-"PO-Revision-Date: 2016-02-12 20:00+0000\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-23 18:02+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/freedesktop/packagekit/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -548,7 +549,12 @@ msgid "PackageKit Monitor"
 msgstr "Monitor de PackageKit"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr "Instal·lació d'actualitzacions del sistema"
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Instal·lació de les actualitzacions"
 
@@ -807,6 +813,11 @@ msgstr "S'estan comprovant les biblioteques en ús"
 msgid "Copying files"
 msgstr "S'estan copiant els fitxers"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr "Execució dels enclavaments"
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Mostra la informació de depuració per a tots els fitxers"
@@ -834,8 +845,8 @@ msgid "Security"
 msgstr "Seguretat"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Correcció d'errors "
+msgid "Bug fix"
+msgstr "Correcció d'errors"
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -969,8 +980,8 @@ msgid "Getting repositories"
 msgstr "S'estan obtenint els dipòsits"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "S'està habilitant el dipòsit"
+msgid "Modifying repository"
+msgstr "S'està modificant el dipòsit"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1315,8 +1326,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Es requereix autenticació per reparar el programari instal·lat"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Dispara les actualitzacions sense connexió"
 

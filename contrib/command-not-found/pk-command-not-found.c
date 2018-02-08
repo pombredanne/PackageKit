@@ -575,7 +575,7 @@ static PkCnfPolicy
 pk_cnf_get_policy_from_file (GKeyFile *file, const gchar *key)
 {
 	PkCnfPolicy policy;
-	gchar *policy_text;
+	g_autofree gchar *policy_text = NULL;
 	g_autoptr(GError) error = NULL;
 
 	/* get from file */
@@ -586,7 +586,6 @@ pk_cnf_get_policy_from_file (GKeyFile *file, const gchar *key)
 
 	/* convert to enum */
 	policy = pk_cnf_get_policy_from_string (policy_text);
-	g_free (policy_text);
 	return policy;
 }
 
@@ -597,8 +596,8 @@ static PkCnfPolicyConfig *
 pk_cnf_get_config (void)
 {
 	GKeyFile *file;
-	gchar *path;
 	gboolean ret;
+	g_autofree gchar *path = NULL;
 	g_autoptr(GError) error = NULL;
 	PkCnfPolicyConfig *config;
 
@@ -644,7 +643,6 @@ pk_cnf_get_config (void)
 		config->max_search_time = 2000;
 	}
 out:
-	g_free (path);
 	g_key_file_free (file);
 	return config;
 }
@@ -805,7 +803,9 @@ main (int argc, char *argv[])
 	len = strlen (argv[1]);
 	if (len < 1)
 		goto out;
-	if (argv[1][0] == '.')
+
+	/* invalid */
+	if (g_strcmp0 (argv[1], ".") == 0 || g_strcmp0 (argv[1], "..") == 0)
 		goto out;
 
 	env_shell = g_getenv ("SHELL");
@@ -816,6 +816,10 @@ main (int argc, char *argv[])
 	 * why it's not executing. NOTE: this is lowercase to mimic
 	 * the style of bash itself -- apologies */
 	g_printerr ("%s: %s: %s...\n", shell, argv[1], _("command not found"));
+
+	/* ignore one char mistakes */
+	if (len < 2)
+		goto out;
 
 	/* user is not allowing CNF to do anything useful */
 	if (!config->software_source_search &&
@@ -874,6 +878,7 @@ main (int argc, char *argv[])
 
 			/* TRANSLATORS: ask the user to choose a file to run */
 			i = pk_console_get_number (_("Please choose a command to run"), array->len);
+			g_assert (i < array->len);
 
 			/* run command */
 			possible = g_ptr_array_index (array, i);
@@ -945,6 +950,7 @@ main (int argc, char *argv[])
 					g_printerr ("%s\n", _("User aborted selection"));
 					goto out;
 				}
+				g_assert (i < len);
 
 				/* run command */
 				ret = pk_cnf_install_package_id (package_ids[i - 1]);

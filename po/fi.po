@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2012-2013,2015
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2012-2013,2015-2017
 # Richard Hughes <richard@hughsie.com>, 2011
 # Ville-Pekka Vainio <vpvainio@iki.fi>, 2011
 # Ville Skyttä <ville.skytta@iki.fi>, 2011
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 19:52+0000\n"
-"PO-Revision-Date: 2016-02-12 19:52+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
 "Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/freedesktop/packagekit/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -359,7 +359,7 @@ msgstr ""
 #. TRANSLATORS: There follows a list of packages downloaded and ready
 #. * to be updated
 msgid "Prepared updates:"
-msgstr ""
+msgstr "Valmistellut päivitykset:"
 
 #. TRANSLATORS: The network settings could not be sent
 msgid "The proxy could not be set"
@@ -404,7 +404,7 @@ msgstr "Suurin metatietojen välimuistin ikä. Arvo -1 tarkoittaa ”ei koskaan�
 
 #. command line argument, do we ask questions
 msgid "Allow untrusted packages to be installed."
-msgstr ""
+msgstr "Salli ei-luotetut paketit asennettavaksi."
 
 #. TRANSLATORS: we failed to contact the daemon
 msgid "Failed to parse command line"
@@ -548,7 +548,12 @@ msgid "PackageKit Monitor"
 msgstr "PackageKit-tarkkailija"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr "Asennetaan järjestelmäpäivitystä"
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Asennetaan päivityksiä"
 
@@ -566,7 +571,7 @@ msgstr "Asennetaan päivityksiä, tämä saattaa kestää hetken..."
 
 #. TRANSLATORS: we've started doing offline system upgrade
 msgid "Installing system upgrade; this could take a while..."
-msgstr ""
+msgstr "Asennetaan järjestelmäpäivitystä, tässä saattaa kestää hetki..."
 
 #. TRANSLATORS: downloading repo data so we can search
 msgid "Downloading details about the software sources."
@@ -807,6 +812,11 @@ msgstr "Etsitään käytössä olevia kirjastoja"
 msgid "Copying files"
 msgstr "Kopioidaan tiedostoja"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Näytä virheenjäljitystietoja kaikista tiedostoista"
@@ -834,8 +844,8 @@ msgid "Security"
 msgstr "Turvallisuus"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Virhekorjaus"
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -969,8 +979,8 @@ msgid "Getting repositories"
 msgstr "Haetaan asennuslähteitä"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Otetaan asennuslähde käyttöön"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -978,7 +988,7 @@ msgstr "Asetetaan dataa"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Removing repository"
-msgstr ""
+msgstr "Poistetaan asennuslähde"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Resolving"
@@ -1175,7 +1185,7 @@ msgid "Install untrusted local file"
 msgstr "Asenna paikallinen tiedosto, johon ei luoteta"
 
 msgid "Authentication is required to install untrusted software"
-msgstr ""
+msgstr "Tunnistautuminen vaaditaan ei-luotettavan ohjelmiston asentamiseksi"
 
 #. SECURITY
 #. - Normal users require admin authentication to reinstall packages.
@@ -1207,7 +1217,7 @@ msgstr ""
 #. without a secure authentication.
 #. - This is not kept as each package should be authenticated.
 msgid "Trust a key used for signing software"
-msgstr ""
+msgstr "Luota ohjelmiston allekirjoittamiseen käytettyyn avaimeen"
 
 msgid ""
 "Authentication is required to consider a key used for signing software as "
@@ -1299,10 +1309,10 @@ msgstr "Laitteen liittäminen uudelleen uudella ajurilla vaatii tunnistautumisen
 #. this can make the system unbootable or stop other applications from
 #. working.
 msgid "Upgrade System"
-msgstr ""
+msgstr "Tee käyttöjärjestelmäpäivitys"
 
 msgid "Authentication is required to upgrade the operating system"
-msgstr ""
+msgstr "Käyttöjärjestelmäpäivityksen tekeminen vaatii tunnistautumisen"
 
 #. SECURITY:
 #. - Normal users require admin authentication to repair the system
@@ -1315,13 +1325,14 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Asennettujen ohjelmistojen korjaus vaatii tunnistautumisen"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr ""
 
 msgid "Authentication is required to trigger offline updates"
-msgstr ""
+msgstr "Tunnistautuminen vaaditaan päivitysten käynnistämiseksi yhteydettömässä tilassa"
 
 #. SECURITY:
 #. - Normal users are able to clear the updates message that is

@@ -19,28 +19,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
  */
 
-#include "hif-backend-vendor.h"
+#ifndef __DNF_BACKEND_VENDOR_H
+#define __DNF_BACKEND_VENDOR_H
 
-gboolean
-hif_validate_supported_source(const gchar* id)
-{
-	guint i;
-	const gchar *valid[] = { "fedora",
-				 "fedora-debuginfo",
-				 "fedora-source",
-				 "rawhide",
-				 "rawhide-debuginfo",
-				 "rawhide-source",
-				 "updates",
-				 "updates-debuginfo",
-				 "updates-source",
-				 "updates-testing",
-				 "updates-testing-debuginfo",
-				 "updates-testing-source",
-				 NULL };
-	for (i = 0; valid[i] != NULL; i++) {
-		if (g_strcmp0 (id, valid[i]) == 0)
-			return TRUE;
-	}
-	return FALSE;
-}
+#include <glib.h>
+
+G_BEGIN_DECLS
+
+gboolean	dnf_validate_supported_repo (const gchar *id);
+
+G_END_DECLS
+
+#endif /* __DNF_BACKEND_VENDOR_H */

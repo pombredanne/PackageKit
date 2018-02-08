@@ -5,14 +5,14 @@
 # Translators:
 # Muhammet Kara <muhammetk@gmail.com>, 2014
 # Muhammet Kara <muhammetk@gmail.com>, 2014
-# Necdet Yücel <necdetyucel@gmail.com>, 2012,2015
+# Necdet Yücel <necdetyucel@gmail.com>, 2012,2015-2016
 # Richard Hughes <richard@hughsie.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 19:52+0000\n"
-"PO-Revision-Date: 2016-02-12 19:52+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
 "Last-Translator: Richard Hughes <richard@hughsie.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/freedesktop/packagekit/language/tr/)\n"
 "MIME-Version: 1.0\n"
@@ -548,7 +548,12 @@ msgid "PackageKit Monitor"
 msgstr "PackageKit İzleyici"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr ""
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Güncellemeler Kuruluyor"
 
@@ -566,7 +571,7 @@ msgstr "Güncellemeler kuruluyor, bu biraz vakit alabilir..."
 
 #. TRANSLATORS: we've started doing offline system upgrade
 msgid "Installing system upgrade; this could take a while..."
-msgstr ""
+msgstr "Sistem güncellemesi kuruluyor, bu işlem biraz vakit alabilir..."
 
 #. TRANSLATORS: downloading repo data so we can search
 msgid "Downloading details about the software sources."
@@ -807,6 +812,11 @@ msgstr "Kullanımdaki kitaplıklar kontrol ediliyor"
 msgid "Copying files"
 msgstr "Dosyalar kopyalanıyor"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr ""
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Tüm dosyalar için hata ayıklama bilgisini göster"
@@ -834,8 +844,8 @@ msgid "Security"
 msgstr "Güvenlik"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
-msgstr "Hata düzeltmesi "
+msgid "Bug fix"
+msgstr ""
 
 #. TRANSLATORS: The type of update
 msgid "Enhancement"
@@ -969,8 +979,8 @@ msgid "Getting repositories"
 msgstr "Depolar alınıyor"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Depo etkinleştiriliyor"
+msgid "Modifying repository"
+msgstr ""
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1018,7 +1028,7 @@ msgstr "İşlemler alınıyor"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Getting system upgrades"
-msgstr ""
+msgstr "Sistem güncellemeleri alınıyor"
 
 #. TRANSLATORS: ask the user if they are comfortable installing insecure
 #. packages
@@ -1129,7 +1139,7 @@ msgstr "Aşağıdaki paketlerin eski sürümleri kurulmalıdır:"
 
 #. TRANSLATORS: When processing, we might have to obsolete other dependencies
 msgid "The following packages have to be obsoleted:"
-msgstr ""
+msgstr "Aşağıdaki paketler kullanılmamalıdır: "
 
 #. TRANSLATORS: When processing, untrusted and non-verified packages may be
 #. encountered
@@ -1299,10 +1309,10 @@ msgstr "Bir aygıtı yenib ri sürücüyle yeniden yüklemek için kimlik kanıt
 #. this can make the system unbootable or stop other applications from
 #. working.
 msgid "Upgrade System"
-msgstr ""
+msgstr "Sistemi Güncelle"
 
 msgid "Authentication is required to upgrade the operating system"
-msgstr ""
+msgstr "İşletim sistemini güncellemek için kimlik doğrulaması gereklidir"
 
 #. SECURITY:
 #. - Normal users require admin authentication to repair the system
@@ -1315,8 +1325,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Kurulu yazılımı onarmak için kimlik kanıtlaması gereklidir"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Çevrim dışı güncellemeleri tetikle"
 

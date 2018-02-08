@@ -25,6 +25,7 @@
 
 #include <glib/gstdio.h>
 #include <glib/gthread.h>
+#include <syslog.h>
 #include <pk-backend.h>
 
 #include "pk-backend-alpm.h"
@@ -65,11 +66,11 @@ pk_alpm_logcb (alpm_loglevel_t level, const gchar *format, va_list args)
 		g_debug ("%s", output);
 		break;
 	case ALPM_LOG_WARNING:
-		g_warning ("%s", output);
+		syslog (LOG_DAEMON | LOG_WARNING, "%s", output);
 		pk_alpm_transaction_output (output);
 		break;
 	default:
-		g_warning ("%s", output);
+		syslog (LOG_DAEMON | LOG_WARNING, "%s", output);
 		break;
 	}
 }
@@ -224,10 +225,5 @@ pk_alpm_finish (PkBackendJob *job, GError *error)
 void
 pk_backend_start_job (PkBackend *backend, PkBackendJob *job)
 {
-	PkBackendAlpmPrivate *priv = pk_backend_get_user_data (backend);
-	if (g_once_init_enter (&priv->environment_initialized))
-	{
-		pk_alpm_environment_initialize (job);
-		g_once_init_leave (&priv->environment_initialized, TRUE);
-	}
+	pk_alpm_environment_initialize (job);
 }

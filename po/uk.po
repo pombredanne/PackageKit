@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Richard Hughes <richard@hughsie.com>, 2011
-# Yuri Chornoivan <yurchor@ukr.net>, 2009-2016
+# Yuri Chornoivan <yurchor@ukr.net>, 2009-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: PackageKit\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-20 09:18+0100\n"
-"PO-Revision-Date: 2016-02-12 20:16+0000\n"
+"POT-Creation-Date: 2018-01-09 13:29+0100\n"
+"PO-Revision-Date: 2017-09-19 09:10+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/freedesktop/packagekit/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -546,7 +546,12 @@ msgid "PackageKit Monitor"
 msgstr "Монітор PackageKit"
 
 #. TRANSLATORS: this is the message we send plymouth to
-#. * advise of the new percentage completion
+#. * advise of the new percentage completion when installing system upgrades
+msgid "Installing System Upgrade"
+msgstr "Встановлюємо оновлення системи"
+
+#. TRANSLATORS: this is the message we send plymouth to
+#. * advise of the new percentage completion when installing updates
 msgid "Installing Updates"
 msgstr "Встановлюємо оновлення"
 
@@ -805,6 +810,11 @@ msgstr "Виявлення бібліотек, що використовують
 msgid "Copying files"
 msgstr "Копіювання файлів"
 
+#. TRANSLATORS: transaction state, we are running hooks before or after the
+#. transaction
+msgid "Running hooks"
+msgstr "Виконуємо допоміжні скрипти"
+
 #. TRANSLATORS: turn on all debugging
 msgid "Show debugging information for all files"
 msgstr "Показувати діагностичні дані для всіх файлів"
@@ -832,7 +842,7 @@ msgid "Security"
 msgstr "Безпека"
 
 #. TRANSLATORS: The type of update
-msgid "Bug fix "
+msgid "Bug fix"
 msgstr "Виправлення вад"
 
 #. TRANSLATORS: The type of update
@@ -967,8 +977,8 @@ msgid "Getting repositories"
 msgstr "Отримання списку сховищ"
 
 #. TRANSLATORS: The role of the transaction, in present tense
-msgid "Enabling repository"
-msgstr "Увімкнення сховища"
+msgid "Modifying repository"
+msgstr "Внесення змін до сховища"
 
 #. TRANSLATORS: The role of the transaction, in present tense
 msgid "Setting data"
@@ -1313,8 +1323,9 @@ msgid "Authentication is required to repair the installed software"
 msgstr "Для відновлення встановленого програмного забезпечення слід пройти розпізнавання"
 
 #. SECURITY:
-#. - Normal users are able to ask updates to be installed at
-#. early boot time without a password.
+#. - Normal users require admin authentication to upgrade the system
+#. to a new distribution since this can make the system unbootable or
+#. stop other applications from working.
 msgid "Trigger offline updates"
 msgstr "Увімкнути або вимкнути оновлення без з’єднання з інтернетом"
 

@@ -1363,6 +1363,16 @@ pk_console_get_files (PkConsoleCtx *ctx, gchar **packages, GError **error)
 	g_autoptr(GError) error_local = NULL;
 	g_auto(GStrv) package_ids = NULL;
 
+	/* local file */
+	if (g_file_test (packages[0], G_FILE_TEST_EXISTS)) {
+		pk_client_get_files_local_async (PK_CLIENT (ctx->task),
+						   packages,
+						   ctx->cancellable,
+						   pk_console_progress_cb, ctx,
+						   pk_console_finished_cb, ctx);
+		return TRUE;
+	}
+
 	package_ids = pk_console_resolve_packages (ctx, packages, &error_local);
 	if (package_ids == NULL) {
 		g_set_error (error,
@@ -1642,7 +1652,7 @@ pk_console_set_proxy (PkConsoleCtx *ctx, GError **error)
 				     http_proxy,
 				     g_getenv ("https_proxy"),
 				     ftp_proxy,
-				     g_getenv ("socks_proxy"),
+				     g_getenv ("all_proxy"),
 				     g_getenv ("no_proxy"),
 				     g_getenv ("pac"),
 				     ctx->cancellable,
@@ -2458,6 +2468,7 @@ out:
 		g_object_unref (ctx->cancellable);
 		if (ctx->defered_status_id > 0)
 			g_source_remove (ctx->defered_status_id);
+		g_main_loop_unref (ctx->loop);
 		g_free (ctx);
 	}
 out_last:
