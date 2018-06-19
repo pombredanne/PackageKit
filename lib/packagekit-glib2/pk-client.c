@@ -1972,7 +1972,7 @@ pk_client_create_helper_socket (PkClientState *state)
 
 	/* no supported frontends available */
 	if (!ret)
-		return FALSE;
+		return NULL;
 
 	/* create object */
 	state->client_helper = pk_client_helper_new ();
@@ -1985,7 +1985,7 @@ pk_client_create_helper_socket (PkClientState *state)
 	ret = pk_client_helper_start (state->client_helper, socket_filename, argv, envp, &error);
 	if (!ret) {
 		g_warning ("failed to open debconf socket: %s", error->message);
-		return FALSE;
+		return NULL;
 	}
 
 	/* success */
@@ -3611,7 +3611,7 @@ pk_client_install_packages_async (PkClient *client, PkBitfield transaction_flags
  * @callback_ready: the function to run on completion
  * @user_data: the data to pass to @callback_ready
  *
- * Install a software source signature of the newest and most correct version.
+ * Install a software repository signature of the newest and most correct version.
  *
  * Since: 0.5.2
  **/

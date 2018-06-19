@@ -50,7 +50,7 @@ pk_task_generic_finish_sync (PkTask *task, GAsyncResult *res, PkTaskHelper *help
 	results = pk_task_generic_finish (task, res, helper->error);
 	if (results != NULL) {
 		g_object_unref (results);
-		helper->results = g_object_ref (G_OBJECT (results));
+		helper->results = g_object_ref (results);
 	}
 	g_main_loop_quit (helper->loop);
 }
@@ -1153,7 +1153,7 @@ pk_task_get_repo_list_sync (PkTask *task, PkBitfield filters, GCancellable *canc
 /**
  * pk_task_repo_enable_sync:
  * @task: a valid #PkTask instance
- * @repo_id: The software source ID
+ * @repo_id: The software repository ID
  * @enabled: %TRUE or %FALSE
  * @cancellable: a #GCancellable or %NULL
  * @progress_callback: (scope call): the function to run when the progress changes

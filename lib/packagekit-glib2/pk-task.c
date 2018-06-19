@@ -371,7 +371,7 @@ pk_task_simulate_ready_cb (GObject *source_object, GAsyncResult *res, PkTaskStat
 	}
 
 	/* we own a copy now */
-	state->results = g_object_ref (G_OBJECT(results));
+	state->results = g_object_ref (results);
 
 	/* get exit code */
 	state->exit_enum = pk_results_get_exit_code (state->results);
@@ -531,7 +531,7 @@ pk_task_install_signatures_ready_cb (GObject *source_object, GAsyncResult *res, 
 	}
 
 	/* we own a copy now */
-	state->results = g_object_ref (G_OBJECT(results));
+	state->results = g_object_ref (results);
 
 	/* get exit code */
 	state->exit_enum = pk_results_get_exit_code (state->results);
@@ -623,7 +623,7 @@ pk_task_accept_eulas_ready_cb (GObject *source_object, GAsyncResult *res, PkTask
 	}
 
 	/* we own a copy now */
-	state->results = g_object_ref (G_OBJECT(results));
+	state->results = g_object_ref (results);
 
 	/* get exit code */
 	state->exit_enum = pk_results_get_exit_code (state->results);
@@ -709,7 +709,7 @@ pk_task_repair_ready_cb (GObject *source_object, GAsyncResult *res, PkTaskState 
 	}
 
 	/* we own a copy now */
-	state->results = g_object_ref (G_OBJECT(results));
+	state->results = g_object_ref (results);
 
 	/* get exit code */
 	state->exit_enum = pk_results_get_exit_code (state->results);
@@ -895,7 +895,7 @@ pk_task_ready_cb (GObject *source_object, GAsyncResult *res, PkTaskState *state)
 	}
 
 	/* we own a copy now */
-	state->results = g_object_ref (G_OBJECT(results));
+	state->results = g_object_ref (results);
 
 	/* get exit code */
 	state->exit_enum = pk_results_get_exit_code (state->results);
@@ -2195,7 +2195,7 @@ pk_task_get_repo_list_async (PkTask *task, PkBitfield filters, GCancellable *can
 /**
  * pk_task_repo_enable_async:
  * @task: a valid #PkTask instance
- * @repo_id: The software source ID
+ * @repo_id: The software repository ID
  * @enabled: %TRUE or %FALSE
  * @cancellable: a #GCancellable or %NULL
  * @progress_callback: (scope notified): the function to run when the progress changes

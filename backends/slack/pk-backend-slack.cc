@@ -11,7 +11,9 @@
 #include "dl.h"
 #include "pkgtools.h"
 #include "slackpkg.h"
-#include "slack-utils.h"
+#include "utils.h"
+
+using namespace slack;
 
 static GSList *repos = NULL;
 
@@ -96,19 +98,13 @@ void pk_backend_initialize(GKeyFile *conf, PkBackend *backend)
 
 		if (g_key_file_has_key(key_conf, groups[i], "Priority", NULL))
 		{
-			repo = slack_slackpkg_new(groups[i],
-			                          mirror,
-			                          i + 1,
-			                          blacklist,
-			                          g_key_file_get_string_list(key_conf, groups[i], "Priority", NULL, NULL));
+			repo = new Slackpkg (groups[i], mirror, i + 1, blacklist,
+					g_key_file_get_string_list(key_conf, groups[i], "Priority", NULL, NULL));
 		}
 		else if (g_key_file_has_key(key_conf, groups[i], "IndexFile", NULL))
 		{
-			repo = slack_dl_new(groups[i],
-			                    mirror,
-			                    i + 1,
-			                    blacklist,
-			                    g_key_file_get_string(key_conf, groups[i], "IndexFile", NULL));
+			repo = new Dl (groups[i], mirror, i + 1, blacklist,
+					g_key_file_get_string(key_conf, groups[i], "IndexFile", NULL));
 		}
 
 		if (repo)
@@ -132,8 +128,13 @@ pk_backend_destroy(PkBackend *backend)
 {
 	g_debug("backend: destroy");
 
-	g_slist_free_full(repos, g_object_unref);
-	curl_global_cleanup();
+	for (GSList *l = repos; l; l = g_slist_next (l))
+	{
+		delete static_cast<Pkgtools *> (l->data);
+	}
+
+	g_slist_free (repos);
+	curl_global_cleanup ();
 }
 
 gchar **
@@ -275,7 +276,7 @@ pk_backend_search_files_thread(PkBackendJob *job, GVariant *params, gpointer use
 		/* Now we're ready to output all packages */
 		while (sqlite3_step(stmt) == SQLITE_ROW)
 		{
-			ret = slack_is_installed((gchar*) sqlite3_column_text(stmt, 2));
+			ret = is_installed((gchar*) sqlite3_column_text(stmt, 2));
 			if ((ret == PK_INFO_ENUM_INSTALLED) || (ret == PK_INFO_ENUM_UPDATING))
 			{
 				pk_backend_job_package(job, PK_INFO_ENUM_INSTALLED,
@@ -424,7 +425,7 @@ pk_backend_resolve_thread(PkBackendJob *job, GVariant *params, gpointer user_dat
 
 			while (sqlite3_step(stmt) == SQLITE_ROW)
 			{
-				ret = slack_is_installed((gchar*) sqlite3_column_text(stmt, 2));
+				ret = is_installed((gchar*) sqlite3_column_text(stmt, 2));
 				if ((ret == PK_INFO_ENUM_INSTALLED) || (ret == PK_INFO_ENUM_UPDATING))
 				{
 					pk_backend_job_package(job, PK_INFO_ENUM_INSTALLED,
@@ -489,12 +490,13 @@ pk_backend_download_packages_thread(PkBackendJob *job, GVariant *params, gpointe
 		if (sqlite3_step(stmt) == SQLITE_ROW)
 		{
 			GSList *repo;
-			if ((repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], slack_cmp_repo)))
+			if ((repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], cmp_repo)))
 			{
 				pk_backend_job_package(job, PK_INFO_ENUM_DOWNLOADING,
 									   pkg_ids[i],
 									   (gchar *) sqlite3_column_text(stmt, 0));
-				slack_pkgtools_download(SLACK_PKGTOOLS(repo->data), job, dir_path, tokens[PK_PACKAGE_ID_NAME]);
+				static_cast<Pkgtools *> (repo->data)->download (job,
+						dir_path, tokens[PK_PACKAGE_ID_NAME]);
 				path = g_build_filename(dir_path, (gchar *) sqlite3_column_text(stmt, 1), NULL);
 				to_strv[0] = path;
 				pk_backend_job_files(job, NULL, to_strv);
@@ -583,7 +585,7 @@ pk_backend_install_packages_thread(PkBackendJob *job, GVariant *params, gpointer
 
 				while (sqlite3_step(collection_stmt) == SQLITE_ROW)
 				{
-					ret = slack_is_installed((gchar*) sqlite3_column_text(collection_stmt, 2));
+					ret = is_installed((gchar*) sqlite3_column_text(collection_stmt, 2));
 					if ((ret == PK_INFO_ENUM_INSTALLING) || (ret == PK_INFO_ENUM_UPDATING))
 					{
 						if ((pk_bitfield_contain(transaction_flags, PK_TRANSACTION_FLAG_ENUM_SIMULATE)) &&
@@ -629,13 +631,12 @@ pk_backend_install_packages_thread(PkBackendJob *job, GVariant *params, gpointer
 
 			pk_backend_job_set_percentage(job, percent_step * i);
 			tokens = pk_package_id_split((gchar *)(l->data));
-			repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], slack_cmp_repo);
+			repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], cmp_repo);
 
 			if (repo)
 			{
-				slack_pkgtools_download(SLACK_PKGTOOLS(repo->data), job,
-										dest_dir_name,
-										tokens[PK_PACKAGE_ID_NAME]);
+				static_cast<Pkgtools *> (repo->data)->download (job,
+						dest_dir_name, tokens[PK_PACKAGE_ID_NAME]);
 			}
 			g_strfreev(tokens);
 		}
@@ -650,11 +651,11 @@ pk_backend_install_packages_thread(PkBackendJob *job, GVariant *params, gpointer
 
 			pk_backend_job_set_percentage(job, percent_step * i);
 			tokens = pk_package_id_split((gchar *)(l->data));
-			repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], slack_cmp_repo);
+			repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], cmp_repo);
 
 			if (repo)
 			{
-				slack_pkgtools_install(SLACK_PKGTOOLS(repo->data), job, tokens[PK_PACKAGE_ID_NAME]);
+				static_cast<Pkgtools *> (repo->data)->install (job, tokens[PK_PACKAGE_ID_NAME]);
 			}
 			g_strfreev(tokens);
 		}
@@ -781,7 +782,7 @@ pk_backend_get_updates_thread(PkBackendJob *job, GVariant *params, gpointer user
 		gchar **tokens;
 
 		pkg_metadata_filename = g_file_info_get_name(pkg_metadata_file_info);
-		tokens = slack_split_package_name(pkg_metadata_filename);
+		tokens = split_package_name(pkg_metadata_filename);
 
 		/* Select the package from the database */
 		sqlite3_bind_text(stmt, 1, tokens[0], -1, SQLITE_TRANSIENT);
@@ -789,7 +790,7 @@ pk_backend_get_updates_thread(PkBackendJob *job, GVariant *params, gpointer user
 		/* If there are more packages with the same name, remember the one from the
 		 * repository with the lowest order. */
 		if ((sqlite3_step(stmt) == SQLITE_ROW)
-		 || g_slist_find_custom(repos, ((gchar *) sqlite3_column_text(stmt, 4)), slack_cmp_repo))
+		 || g_slist_find_custom(repos, ((gchar *) sqlite3_column_text(stmt, 4)), cmp_repo))
 		{
 
 			full_name = g_strdup((gchar *) sqlite3_column_text(stmt, 0));
@@ -865,13 +866,12 @@ pk_backend_update_packages_thread(PkBackendJob *job, GVariant *params, gpointer 
 
 			if (g_strcmp0(tokens[PK_PACKAGE_ID_DATA], "obsolete"))
 			{
-				GSList *repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], slack_cmp_repo);
+				GSList *repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], cmp_repo);
 
 				if (repo)
 				{
-					slack_pkgtools_download(SLACK_PKGTOOLS(repo->data), job,
-					                        dest_dir_name,
-					                        tokens[PK_PACKAGE_ID_NAME]);
+					static_cast<Pkgtools *> (repo->data)->download (job,
+							dest_dir_name, tokens[PK_PACKAGE_ID_NAME]);
 				}
 			}
 
@@ -887,14 +887,12 @@ pk_backend_update_packages_thread(PkBackendJob *job, GVariant *params, gpointer 
 
 			if (g_strcmp0(tokens[PK_PACKAGE_ID_DATA], "obsolete"))
 			{
-				GSList *repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], slack_cmp_repo);
+				GSList *repo = g_slist_find_custom(repos, tokens[PK_PACKAGE_ID_DATA], cmp_repo);
 
 				if (repo)
 				{
-					slack_pkgtools_download(SLACK_PKGTOOLS(repo->data),
-					                        job,
-					                        dest_dir_name,
-					                        tokens[PK_PACKAGE_ID_NAME]);
+					static_cast<Pkgtools *> (repo->data)->install (job,
+							tokens[PK_PACKAGE_ID_NAME]);
 				}
 			}
 			else
@@ -990,7 +988,7 @@ pk_backend_refresh_cache_thread(PkBackendJob *job, GVariant *params, gpointer us
 	for (GSList *l = repos; l; l = g_slist_next(l))
 	{
 		file_list = g_slist_concat(file_list,
-		                           slack_pkgtools_collect_cache_info(SLACK_PKGTOOLS(l->data), tmp_dir_name));
+				static_cast<Pkgtools *> (l->data)->collect_cache_info (tmp_dir_name));
 	}
 
 	/* Download repository */
@@ -998,9 +996,8 @@ pk_backend_refresh_cache_thread(PkBackendJob *job, GVariant *params, gpointer us
 
 	for (GSList *l = file_list; l; l = g_slist_next(l))
 	{
-		slack_get_file(&job_data->curl,
-		               ((gchar **) l->data)[0],
-		               ((gchar **)l->data)[1]);
+		get_file(&job_data->curl, static_cast<gchar **> (l->data)[0],
+				static_cast<gchar **> (l->data)[1]);
 	}
 	g_slist_free_full(file_list, (GDestroyNotify)g_strfreev);
 
@@ -1009,7 +1006,7 @@ pk_backend_refresh_cache_thread(PkBackendJob *job, GVariant *params, gpointer us
 
 	for (GSList *l = repos; l; l = g_slist_next(l))
 	{
-		slack_pkgtools_generate_cache(SLACK_PKGTOOLS(l->data), job, tmp_dir_name);
+		static_cast<Pkgtools *> (l->data)->generate_cache (job, tmp_dir_name);
 	}
 
 out:

@@ -1,28 +1,24 @@
 #ifndef __SLACK_DL_H
 #define __SLACK_DL_H
 
-#include <glib-object.h>
 #include "pkgtools.h"
 
-G_BEGIN_DECLS
+namespace slack {
 
-#define SLACK_TYPE_DL slack_dl_get_type()
-G_DECLARE_FINAL_TYPE(SlackDl, slack_dl, SLACK, DL, GObject)
-
-SlackDl *slack_dl_new(const gchar *name,
-                      const gchar *mirror,
-                      guint8 order,
-                      const gchar *blacklist,
-                      gchar *index_file);
-
-guint8 slack_dl_get_order(SlackDl *dl);
-gboolean slack_dl_is_blacklisted(SlackDl *dl, const gchar *pkg);
-
-class _SlackDl final : public SlackPkgtools
+class Dl final : public Pkgtools
 {
-	GObject parent;
+public:
+	Dl (const gchar *name, const gchar *mirror,
+		guint8 order, const gchar *blacklist, gchar *index_file) noexcept;
+	~Dl () noexcept;
+
+	GSList *collect_cache_info (const gchar *tmpl) noexcept;
+	void generate_cache (PkBackendJob *job, const gchar *tmpl) noexcept;
+
+private:
+	gchar *index_file;
 };
 
-G_END_DECLS
+}
 
 #endif /* __SLACK_DL_H */

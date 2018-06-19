@@ -131,12 +131,12 @@ public:
     /**
       * Returns a list of all packages that matched their names with matcher
       */
-    PkgList searchPackageName(gchar *search);
+    PkgList searchPackageName(const vector<string> &queries);
 
     /**
       * Returns a list of all packages that matched their description with matcher
       */
-    PkgList searchPackageDetails(gchar *search);
+    PkgList searchPackageDetails(const vector<string> &queries);
 
     /**
       * Returns a list of all packages that matched contains the given files
@@ -147,7 +147,7 @@ public:
       * Returns a list of all packages that can be updated
       * Pass a PkgList to get the blocked updates as well
       */
-    PkgList getUpdates(PkgList &blocked);
+    PkgList getUpdates(PkgList &blocked, PkgList &downgrades);
 
     /**
      *  Emits a package with the given state
@@ -246,6 +246,7 @@ private:
     bool checkTrusted(pkgAcquire &fetcher, PkBitfield flags);
     bool packageIsSupported(const pkgCache::VerIterator &verIter, string component);
     bool isApplication(const pkgCache::VerIterator &verIter);
+    bool matchesQueries(const vector<string> &queries, string s);
 
     /**
      *  interprets dpkg status fd

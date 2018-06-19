@@ -2,7 +2,7 @@
 
 m4_define([pk_major_version], [1])
 m4_define([pk_minor_version], [1])
-m4_define([pk_micro_version], [9])
+m4_define([pk_micro_version], [11])
 m4_define([pk_version],
           [pk_major_version.pk_minor_version.pk_micro_version])
 
@@ -166,7 +166,7 @@ AM_GLIB_GNU_GETTEXT
 dnl ---------------------------------------------------------------------------
 dnl - Library dependencies
 dnl ---------------------------------------------------------------------------
-GLIB_REQUIRED=2.46.0
+GLIB_REQUIRED=2.54.0
 GIO_REQUIRED=2.16.1
 POLKIT_GOBJECT_REQUIRED=0.98
 
@@ -394,8 +394,8 @@ AC_SUBST(DBUS_SERVICES_DIR)
 if test x$enable_dnf = xyes; then
 	PKG_CHECK_MODULES(DNF, appstream-glib libdnf >= 0.7.0)
 	AC_ARG_WITH(dnf-vendor,
-			[AS_HELP_STRING([--with-dnf-vendor=<vendor>],[select a vendor configuration (fedora, mageia; default is fedora)])])
-	if test "$with_dnf_vendor" = "fedora" -o "$with_dnf_vendor" = "mageia"; then
+			[AS_HELP_STRING([--with-dnf-vendor=<vendor>],[select a vendor configuration (fedora, mageia, openmandriva; default is fedora)])])
+	if test "$with_dnf_vendor" = "fedora" -o "$with_dnf_vendor" = "mageia" -o "$with_dnf_vendor" = "openmandriva"; then
 		with_dnf_vendor="$with_dnf_vendor"
 	else
 		with_dnf_vendor="fedora"
@@ -496,11 +496,6 @@ if test x$enable_slack = xyes; then
 	SLACK_CFLAGS="$CURL_CFLAGS"
 	SLACK_LIBS="$CURL_LIBS"
 
-	# Require C11 support
-	AX_CHECK_COMPILE_FLAG([-std=c11], [
-		SLACK_CFLAGS+=" -std=c11"
-	])
-
 	AC_SUBST(SLACK_PKGMAIN)
 	AC_SUBST(SLACK_CFLAGS)
 	AC_SUBST(SLACK_LIBS)
@@ -546,6 +541,7 @@ backends/dnf/Makefile
 backends/dummy/Makefile
 backends/entropy/Makefile
 backends/slack/Makefile
+backends/slack/tests/Makefile
 backends/test/Makefile
 backends/test/helpers/Makefile
 backends/urpmi/Makefile

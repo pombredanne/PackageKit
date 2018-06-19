@@ -1,7 +1,8 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
+ * Copyright (C) 2018 Bernhard Rosenkraenzer <bero@lindev.ch>
+ * based on dnf-backend-vendor-mageia.c
  * Copyright (C) 2016 Neal Gompa <ngompa13@gmail.com>
- * Copyright (C) 2018 Kalev Lember <klember@redhat.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -25,16 +26,43 @@
 gboolean
 dnf_validate_supported_repo (const gchar *id)
 {
-	const gchar *default_repos[] = { "fedora",
-	                                 "rawhide",
-	                                 "updates",
-	                                 NULL };
+	guint i, j, k, l;
 
-	/* core repos that users shouldn't play with */
-	for (guint i = 0; default_repos[i] != NULL; i++) {
-		if (g_strcmp0 (id, default_repos[i]) == 0)
-			return TRUE;
+	const gchar *valid_sourcesect[] = { "",
+					  "-contrib",
+					  "-restricted",
+					  "-non-free",
+					  NULL };
+
+	const gchar *valid_sourcetype[] = { "",
+					  "-debuginfo",
+					  "-source",
+					  NULL };
+
+	const gchar *valid_arch[] = { "x86_64",
+				      "i686",
+				      "aarch64",
+				      "armv7hl",
+				      NULL };
+
+	const gchar *valid[] = { "openmandriva",
+				 "updates",
+				 "testing",
+				 "cooker",
+				 NULL };
+
+	/* Iterate over the ID arrays to find a matching identifier */
+	for (i = 0; valid[i] != NULL; i++) {
+		for (j = 0; valid_arch[j] != NULL; j++) {
+			for (k = 0; valid_sourcesect[k] != NULL; k++) {
+				for (l = 0; valid_sourcetype[l] != NULL; l++) {
+					g_autofree gchar *source_entry = g_strconcat(valid[i], "-", valid_arch[j], valid_sourcesect[k], valid_sourcetype[l], NULL);
+					if (g_strcmp0 (id, source_entry) == 0) {
+						return TRUE;
+					}
+				}
+			}
+		}
 	}
-
 	return FALSE;
 }
